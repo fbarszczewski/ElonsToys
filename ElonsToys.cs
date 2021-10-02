@@ -2,23 +2,48 @@ using System;
 
 class RemoteControlCar
 {
+    private static int _id =0;
+
+    public int Id
+    {
+        get => _id;
+        set => _id = value;
+    }
+
+    public int Battery { get; set; }
+
+    public int Distance { get; set; }
+
+    public RemoteControlCar()
+    {
+        Id= System.Threading.Interlocked.Increment(ref _id);
+        Battery = 100;
+        Distance = 0;
+    }
+
+
     public static RemoteControlCar Buy()
     {
-        throw new NotImplementedException("Please implement the (static) RemoteControlCar.Buy() method");
+        return new RemoteControlCar();
     }
 
     public string DistanceDisplay()
     {
-        throw new NotImplementedException("Please implement the RemoteControlCar.DistanceDisplay() method");
+        return $"Driven {Distance} meters";
     }
 
     public string BatteryDisplay()
     {
-        throw new NotImplementedException("Please implement the RemoteControlCar.BatteryDisplay() method");
+        if (Battery > 0)
+            return $"Battery at {Battery}%";
+        else
+            return $"Battery empty";
     }
 
     public void Drive()
     {
-        throw new NotImplementedException("Please implement the RemoteControlCar.Drive() method");
+        if (Battery <= 0) return;
+        Distance += 20;
+        Battery -= 1;
     }
 }
